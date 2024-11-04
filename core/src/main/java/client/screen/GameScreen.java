@@ -3,9 +3,14 @@ package client.screen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class GameScreen extends AbstractScreen {
     public static final float SPEED = 120;
@@ -16,7 +21,9 @@ public class GameScreen extends AbstractScreen {
     private Texture img;
     private TextureRegion[] spriteRegions;
     private int currentSpriteIndex;
-
+    private OrthographicCamera camera;
+    private TiledMap map;
+    private TiledMapRenderer mapRenderer;
 
     public GameScreen(Game game) {
         super(game);
@@ -26,6 +33,12 @@ public class GameScreen extends AbstractScreen {
     public void show() {
         batch = new SpriteBatch();
         img = new Texture("assets/sprites/character/Adam_idle_16x16.png");
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false);
+
+        // Cargar el mapa
+        map = new TmxMapLoader().load("recicleIt.tmx"); // Asegúrate de que la ruta sea correcta
+        mapRenderer = new OrthogonalTiledMapRenderer(map);
 
         // Suponiendo que tienes un sprite sheet de 16x16 y quieres dividirlo en 4 sprites
         int spriteWidth = 16;
@@ -43,6 +56,12 @@ public class GameScreen extends AbstractScreen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
+        // Actualizar la cámara
+        camera.update();
+        mapRenderer.setView(camera);
+
+        // Dibujar el mapa
+        mapRenderer.render();
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             x -= SPEED * Gdx.graphics.getDeltaTime();
@@ -90,6 +109,7 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void dispose() {
         batch.dispose();
+        map.dispose(); // Asegúrate de liberar el mapa
         img.dispose(); // Asegúrate de liberar la textura también
     }
 }
