@@ -18,12 +18,12 @@ public class Main extends Game {
             screenManager = ScreenManager.getInstance(this);
 
             //Configuracion y reproduccion de la musica
-            music = Gdx.audio.newMusic(Gdx.files.internal("Caballero.mp3"));
+            music = Gdx.audio.newMusic(Gdx.files.internal("musica.mp3"));
             music.setLooping(true);
             music.setVolume(0.5f);
             music.play();
             // Establece la pantalla de inicio
-            screenManager.showMenuScreen();
+            screenManager.showGameScreen();
         } catch (Exception e) {
             System.err.println("Error al ejecutar el juego: " + e.getMessage());
             e.printStackTrace();

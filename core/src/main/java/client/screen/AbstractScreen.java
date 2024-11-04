@@ -2,6 +2,7 @@ package client.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 
 public class AbstractScreen  implements Screen {
     protected Game game;
