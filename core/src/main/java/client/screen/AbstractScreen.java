@@ -19,7 +19,7 @@ public class AbstractScreen  implements Screen {
     }
 
     @Override
-    public void render(float v) {
+    public void render(float delta) {
 
     }
 

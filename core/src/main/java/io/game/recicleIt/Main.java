@@ -23,11 +23,10 @@ public class Main extends Game {
             music.setVolume(0.5f);
             music.play();
             // Establece la pantalla de inicio
-            screenManager.showGameScreen();
+            screenManager.showMenuScreen();
         } catch (Exception e) {
             System.err.println("Error al ejecutar el juego: " + e.getMessage());
-            e.printStackTrace();
-        }
+    }
     }
 }
 
