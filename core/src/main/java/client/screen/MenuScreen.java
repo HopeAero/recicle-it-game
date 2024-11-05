@@ -7,17 +7,16 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MenuScreen extends AbstractScreen {
     private Texture texture;
     private SpriteBatch batch;
     private float x, y, scale;
     private OrthographicCamera camera;
-    private Viewport viewport;
+    private ScreenViewport viewport;
 
     // Textures for buttons
     private Texture playButtonNormal;
@@ -49,17 +48,16 @@ public class MenuScreen extends AbstractScreen {
         exitButtonHover = new Texture(Gdx.files.internal("assets/sprites/buttons/Quit/Quit2.png"));
         exitButtonPressed = new Texture(Gdx.files.internal("assets/sprites/buttons/Quit/Quit3.png"));
         batch = new SpriteBatch();
-
         // Set up camera and viewport
         camera = new OrthographicCamera();
-        viewport = new FitViewport(800, 500, camera);
-        viewport.apply();
+        viewport = new ScreenViewport(camera);
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
+        viewport.apply();
         batch.setProjectionMatrix(camera.combined);
 
         // Detect mouse position and convert coordinates
